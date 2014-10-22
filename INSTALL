@@ -1,0 +1,3 @@
+sudo mkdir -vp /var/www/html/budget-calc
+sudo cp ./htdocs/* /var/www/html/budget-calc/
+sudo cp ./lib/*.js /var/www/html/budget-calc/
