@@ -3,7 +3,7 @@ JS.Test.describe('Budget', function() { with(this) {
     this.Budget = new Budget()
   }})
 
-  describe('lines', function() { with(this) { 
+  describe('adding and removing lines', function() { with(this) { 
     // lines should be an empty array
     it('returns 0', function() { with(this) {
       assert( Budget.lines.length == 0 )
@@ -26,7 +26,9 @@ JS.Test.describe('Budget', function() { with(this) {
         Budget.addLine(line)
       })
     }})
+  }})
 
+  describe('totals', function() { with(this) { 
     it('returns 10', function() { with(this) {
       Budget.lines = [] // empty lines
       var line = new Line(10, 1, 'Income')
@@ -69,5 +71,6 @@ JS.Test.describe('Budget', function() { with(this) {
       var line = new Line(-10, 1, 'Income2')
       Budget.addLine(line)
       assert( Budget.totalPerWeek() == -140 )     
+    }}) 
   }})
 }}) 
