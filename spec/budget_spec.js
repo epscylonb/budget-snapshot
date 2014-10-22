@@ -26,6 +26,24 @@ JS.Test.describe('Budget', function() { with(this) {
         Budget.addLine(line)
       })
     }})
+
+    it('removes a line', function() { with(this) {
+      Budget.lines = [] // empty lines
+      var line = new Line(10, 1, 'Income')
+      Budget.addLine(line)
+      Budget.removeLine(line)
+      assert( Budget.lines.length == 0 )
+    }})
+
+    it('removes specific line', function() { with(this) {
+      Budget.lines = [] // empty lines
+      var line1 = new Line(10, 1, 'Income1')
+      Budget.addLine(line1)
+      var line2 = new Line(10, 1, 'Income2')
+      Budget.addLine(line2)
+      Budget.removeLine(line1)
+      assert( Budget.lines[0].description == 'Income2') 
+    }})
   }})
 
   describe('totals', function() { with(this) { 
