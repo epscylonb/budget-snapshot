@@ -3,17 +3,39 @@ JS.Test.describe('Budget', function() { with(this) {
     this.Budget = new Budget()
   }})
 
+  describe('getting lines', function() { with(this) {
+    it('returns positive lines', function() { with(this) {
+      Budget.lines = [] // empty lines
+      var line = new Line(10, 1, 'Income1')
+      Budget.addLine(line)
+      var line = new Line(-10, 1, 'Income2')
+      Budget.addLine(line)
+      var lines = Budget.positiveLines()
+      assert(lines.length == 1)
+    }})
+
+    it('returns negative lines', function() { with(this) {
+      Budget.lines = [] // empty lines
+      var line = new Line(10, 1, 'Income1')
+      Budget.addLine(line)
+      var line = new Line(-10, 1, 'Income2')
+      Budget.addLine(line)
+      var lines = Budget.negativeLines()
+      assert(lines.length == 1)
+    }})
+  }})
+
   describe('adding and removing lines', function() { with(this) { 
     // lines should be an empty array
     it('returns 0', function() { with(this) {
-      assert( Budget.lines.length == 0 )
+      assert(Budget.lines.length == 0)
     }}) 
 
     // should be able to add to lines
     it('returns 1', function() { with(this) {
       var line = new Line(10, 1, 'Income')
       Budget.addLine(line)
-      assert( Budget.lines.length == 1)
+      assert(Budget.lines.length == 1)
     }})
 
     // should not be able to add two lines with the same description
@@ -32,7 +54,7 @@ JS.Test.describe('Budget', function() { with(this) {
       var line = new Line(10, 1, 'Income')
       Budget.addLine(line)
       Budget.removeLine(line)
-      assert( Budget.lines.length == 0 )
+      assert(Budget.lines.length == 0)
     }})
 
     it('removes specific line', function() { with(this) {
@@ -42,7 +64,7 @@ JS.Test.describe('Budget', function() { with(this) {
       var line2 = new Line(10, 1, 'Income2')
       Budget.addLine(line2)
       Budget.removeLine(line1)
-      assert( Budget.lines[0].description == 'Income2') 
+      assert(Budget.lines[0].description == 'Income2') 
     }})
   }})
 
@@ -51,35 +73,35 @@ JS.Test.describe('Budget', function() { with(this) {
       Budget.lines = [] // empty lines
       var line = new Line(10, 1, 'Income')
       Budget.addLine(line)
-      assert( Budget.totalPerDay() == 10 )     
+      assert(Budget.totalPerDay() == 10)     
     }}) 
 
     it('returns 20', function() { with(this) {
       Budget.lines = [] // empty lines
       var line = new Line(20, 1, 'Income')
       Budget.addLine(line)
-      assert( Budget.totalPerDay() == 20 )     
+      assert(Budget.totalPerDay() == 20)     
     }}) 
 
     it('returns 70', function() { with(this) {
       Budget.lines = [] // empty lines
       var line = new Line(10, 1, 'Income')
       Budget.addLine(line)
-      assert( Budget.totalPerWeek() == 70 )     
+      assert(Budget.totalPerWeek() == 70)     
     }}) 
 
     it('returns 300', function() { with(this) {
       Budget.lines = [] // empty lines
       var line = new Line(10, 1, 'Income')
       Budget.addLine(line)
-      assert( Budget.totalPerMonth() == 300 )     
+      assert(Budget.totalPerMonth() == 300)     
     }}) 
 
     it('returns 3650', function() { with(this) {
       Budget.lines = [] // empty lines
       var line = new Line(10, 1, 'Income')
       Budget.addLine(line)
-      assert( Budget.totalPerYear() == 3650 )     
+      assert(Budget.totalPerYear() == 3650)     
     }}) 
 
     it('returns -140', function() { with(this) {
@@ -88,7 +110,7 @@ JS.Test.describe('Budget', function() { with(this) {
       Budget.addLine(line)
       var line = new Line(-10, 1, 'Income2')
       Budget.addLine(line)
-      assert( Budget.totalPerWeek() == -140 )     
+      assert(Budget.totalPerWeek() == -140)     
     }}) 
   }})
 }}) 

@@ -27,7 +27,6 @@ JS.Test.describe('Line', function() { with(this) {
       this.line = new Line(-10, 1, 'Expense')
       assert( line.perWeek() == -70)
     }})
-
   }})
 }})
 
