@@ -23,7 +23,7 @@ var App = {
 
     // if no lines exist add some example ones
     if (this.budget.lines.length == 0) { 
-      this.budget.addLine(new Line(10, 1, "Salary"));
+      this.budget.addLine(new Line(10, 7, "Salary"));
       this.budget.addLine(new Line(-10, 1, "Lunch"));
     }
 
