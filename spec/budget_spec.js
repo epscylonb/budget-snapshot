@@ -23,6 +23,16 @@ JS.Test.describe('Budget', function() { with(this) {
       var lines = Budget.negativeLines()
       assert(lines.length == 1)
     }})
+    
+    it('gets single line by description', function() { with(this) {
+      Budget.lines = [] // empty lines
+      var line = new Line(10, 1, 'Income', 'salary')
+      Budget.addLine(line)
+      var line = new Line(20, 1, 'Expense', 'Lunch')
+      Budget.addLine(line)
+      var line = Budget.getLine('Lunch')
+      assert(line.amount == 20)
+    }})
   }})
 
   describe('adding and removing lines', function() { with(this) { 

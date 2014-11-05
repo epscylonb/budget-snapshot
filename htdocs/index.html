@@ -11,6 +11,7 @@
 <script src="line.js"></script>
 <script src="handlebars-v2.0.0.js"></script>
 <script src="jquery-1.11.1.min.js"></script>
+<script src="bootstrap.min.js"></script>
 
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
@@ -36,16 +37,15 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h2>Income</h2>
+          <h3>Income</h3>
         </div>
-        <div class="panel-body">
-          <ul id="income-line-list"></ul>
+        <div id="income-line-list" class="panel-body">
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-4">
-          <button id="new-line" type="button" class="btn btn-default">Add</button>
+          <button id="new-income-line" type="button" class="btn btn-default">Add</button>
         </div>
       </div>
 
@@ -54,10 +54,9 @@
     <div class="col-md-5">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h2>Expenses</h2>
+          <h3>Expenses</h3>
         </div>
-        <div class="panel-body">
-          <ul id="expense-line-list"></ul>
+        <div id="expense-line-list" class="panel-body">
         </div>
       </div>
     </div>
@@ -70,44 +69,37 @@
 
 
 <script id="line-template" type="text/x-handlebars-template">
- {{#each this}}
-  <div class="row">
+  {{#each this}}
+  <div class="row line">
 
-    <div class="col-md-2">
+    <div class="col-md-5">
+      <div class="form-group">
       <div class="input-group">
         <span class="input-group-addon">$</span>
-        <input type="text" class="form-control" value={{amount}}>
+        <input type="text" class="form-control" id="amount" value={{amount}}>
+      </div>
       </div>
     </div>
 
     <div class="col-md-5">
-      <div class="btn-group">
-          <button type="button" class="btn btn-default {{period this 'Day'}}">
-            Day
-          </button>
-          <button type="button" class="btn btn-default {{period this 'Week'}}">
-            Week
-          </button>
-          <button type="button" class="btn btn-default {{period this 'Month'}}">
-            Month
-          </button>
-          <button type="button" class="btn btn-default {{period this 'Year'}}">
-            Year
-          </button>
+      <div class="form-group">
+        <input id="description" type="text" class="form-control" value="{{description}}">
       </div>
     </div>
 
-    <div class="col-md-5">
-      <div class="input-group">
-        <input type="text" class="form-control" value="{{description}}">
-      </div>
+    <div class="col-md-2">
+      <select class="form-control" id="period">
+        <option value=1 {{period this 'Day'}}>Day</option>
+        <option value=7 {{period this 'Week'}}>Week</option>
+        <option value=30 {{period this 'Month'}}>Month</option>
+        <option value=365 {{period this 'Year'}}>Year</option>
+      </select>
     </div>
 
   </div>
   {{/each}}
 
 </script>
-
 
 <script src="app.js"></script>
 
