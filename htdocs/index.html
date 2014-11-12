@@ -45,7 +45,9 @@
 
       <div class="row">
         <div class="col-md-4">
-          <button id="new-income-line" type="button" class="btn btn-default">Add</button>
+          <button id="new-income-line" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus"></span> 
+          </button>
         </div>
       </div>
 
@@ -57,6 +59,14 @@
           <h3>Expenses</h3>
         </div>
         <div id="expense-line-list" class="panel-body">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <button id="new-expense-line" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus"></span> 
+          </button>
         </div>
       </div>
     </div>
@@ -72,11 +82,12 @@
   {{#each this}}
   <div class="row line">
 
-    <div class="col-md-5">
+    <div class="col-md-4">
       <div class="form-group">
       <div class="input-group">
         <span class="input-group-addon">$</span>
         <input type="text" class="form-control" id="amount" value={{amount}}>
+        <input id="line-id" type="hidden" value="{{this.id}}">
       </div>
       </div>
     </div>
@@ -94,6 +105,12 @@
         <option value=30 {{period this 'Month'}}>Month</option>
         <option value=365 {{period this 'Year'}}>Year</option>
       </select>
+    </div>
+
+    <div class="col-md-1">
+      <button type="button" class="btn btn-default delete-line">
+        <span class="glyphicon glyphicon-remove"></span> 
+      </button>
     </div>
 
   </div>

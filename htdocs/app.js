@@ -37,7 +37,8 @@ var App = {
     this.$main = $('#main');
     this.$incomeLineList = this.$main.find('#income-line-list');
     this.$expenseLineList = this.$main.find('#expense-line-list');
-    this.$newIncomeLineBtn = this.$main.find('#new-income-line');
+    this.$newIncomeLineBtn = this.$main.find('button#new-income-line');
+    this.$newExpenseLineBtn = this.$main.find('button#new-expense-line');
   },
   render: function() {
     var positiveLines = this.budget.positiveLines();
@@ -46,14 +47,23 @@ var App = {
     this.$expenseLineList.html(this.lineTemplate(negativeLines));
   },
   bindEvents: function() {
-    this.$newIncomeLineBtn.on('click', this.create.bind(this));
-    this.$incomeLineList.on('focusout', this.update.bind(this));
+    this.$newIncomeLineBtn.on('click', this.createLine.bind(this));
+    this.$newExpenseLineBtn.on('click', this.createLine.bind(this));
+    this.$main.on('click', '.delete-line', this.deleteLine.bind(this));
+    //this.$incomeLineList.on('focusout', this.update.bind(this));
   },
-  create: function(e) {
-    type = 'Expense';
-    if (e.target.id == 'new-income-line')
+  createLine: function(e) {
+    var target = $(e.target).closest('button')[0];
+    var type = 'Expense';
+    if (target.id == 'new-income-line')
       type = 'Income';
     this.budget.addLine(new Line(10, 1, type, 'Description'));
+    this.render();
+  },
+  deleteLine: function(e) {
+    var lineDiv = $(e.target).parents('div.line');
+    var lineId = lineDiv.find('input#line-id')[0].value;
+    this.budget.removeLine(parseInt(lineId));      
     this.render();
   },
   update: function(e) {
@@ -63,8 +73,8 @@ var App = {
     var amount = lineDiv.find('input#amount')[0].value;
     var period = $(lineDiv.find('select#period')[0]).val();
 
-    var line = this.budget.getLine(desc);
-    line.desc = desc;
+//    var line = this.budget.getLine(desc);
+    line.description = desc;
     line.amount = amount;
     line.days = period;
   }
