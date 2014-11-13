@@ -14,6 +14,9 @@ var Util = {
       var store = localStorage.getItem(namespace);
       return (store && JSON.parse(store)) || new Budget();
     }
+  },
+  format: function(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 }
 
@@ -23,7 +26,7 @@ var App = {
 
     // if no lines exist add some example ones
     if (this.budget.lines.length == 0) { 
-      this.budget.addLine(new Line(10, 7, 'Income', "Salary"));
+      this.budget.addLine(new Line(10, 1, 'Income', "Salary"));
       this.budget.addLine(new Line(10, 1, 'Expense', "Lunch"));
     }
 
@@ -45,12 +48,22 @@ var App = {
     var negativeLines = this.budget.negativeLines();
     this.$incomeLineList.html(this.lineTemplate(positiveLines));
     this.$expenseLineList.html(this.lineTemplate(negativeLines));
+    this.updateTotals();
+  },
+  updateTotals: function() {
+    var table = this.$main.find('table#income-totals')[0];
+    $('span#day-total').text(Util.format(this.budget.totalPerDay()));
+    $('span#week-total').text(Util.format(this.budget.totalPerWeek()));
+    $('span#month-total').text(Util.format(this.budget.totalPerMonth()));
+    $('span#year-total').text(Util.format(this.budget.totalPerYear()));
   },
   bindEvents: function() {
     this.$newIncomeLineBtn.on('click', this.createLine.bind(this));
     this.$newExpenseLineBtn.on('click', this.createLine.bind(this));
     this.$main.on('click', '.delete-line', this.deleteLine.bind(this));
-    //this.$incomeLineList.on('focusout', this.update.bind(this));
+    this.$incomeLineList.on('focusout', this.update.bind(this));
+    this.$main.on('change', 'select#period', this.update.bind(this));
+    this.$main.on('change', 'input#amount', this.update.bind(this)); 
   },
   createLine: function(e) {
     var target = $(e.target).closest('button')[0];
@@ -68,15 +81,17 @@ var App = {
   },
   update: function(e) {
     var lineDiv = $(e.target).parents('div.line');
+    var lineId = lineDiv.find('input#line-id')[0].value;
 
     var desc = lineDiv.find('input#description')[0].value;
     var amount = lineDiv.find('input#amount')[0].value;
     var period = $(lineDiv.find('select#period')[0]).val();
 
-//    var line = this.budget.getLine(desc);
+    var line = this.budget.getLine(parseInt(lineId));
     line.description = desc;
     line.amount = amount;
     line.days = period;
+    this.render();
   }
 }
 

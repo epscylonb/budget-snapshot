@@ -130,5 +130,54 @@ JS.Test.describe('Budget', function() { with(this) {
       budget.addLine(line)
       assert(budget.totalPerWeek() == -140)     
     }}) 
+    
+    it('formatted to two decimal places', function() { with(this) {
+      budget.lines = [] // empty lines
+      var line = new Line(1.111, 1, 'Income', 'salary')
+      budget.addLine(line)
+      assert(budget.totalPerWeek() == 7.78)     
+    }}) 
+
+    it('income per day', function() { with(this) {
+      budget.lines = [] // empty lines
+      var line = new Line(10, 1, 'Income', 'salary')
+      budget.addLine(line);
+      assert(budget.per('Income', Budget.PeriodEnum.DAY) == 10);
+    }}) 
+
+    it('income per week', function() { with(this) {
+      budget.lines = [] // empty lines
+      var line = new Line(10, 1, 'Income', 'salary')
+      budget.addLine(line);
+      assert(budget.per('Income', Budget.PeriodEnum.WEEK) == 70);
+    }}) 
+
+    it('expenses per day', function() { with(this) {
+      budget.lines = [] // empty lines
+      var line = new Line(20, 1, 'Expense', 'salary')
+      budget.addLine(line);
+      assert(budget.per('Expense', Budget.PeriodEnum.DAY) == 20);
+    }}) 
+
+    it('expenses per month', function() { with(this) {
+      budget.lines = [] // empty lines
+      var line = new Line(20, 30, 'Expense', 'salary')
+      budget.addLine(line);
+      assert(budget.per('Expense', Budget.PeriodEnum.MONTH) == 20);
+    }}) 
+
+    it('expenses per year', function() { with(this) {
+      budget.lines = [] // empty lines
+      var line = new Line(20, 365, 'Expense', 'salary')
+      budget.addLine(line);
+      assert(budget.per('Expense', Budget.PeriodEnum.YEAR) == 20);
+    }}) 
+
+    it('totals per year', function() { with(this) {
+      budget.lines = [] // empty lines
+      var line = new Line(20, 365, 'Expense', 'salary')
+      budget.addLine(line);
+      assert(budget.per('Expense', Budget.PeriodEnum.YEAR) == 20);
+    }}) 
   }})
 }}) 
