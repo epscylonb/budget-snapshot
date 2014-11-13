@@ -1,7 +1,7 @@
 JS.Test.describe('Line', function() { with(this) {
 
   before(function() { with(this) {
-    this.line = new Line(10, 1, 'Income', 'salary')
+    this.line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
   }})
 
   describe('validation', function() { with(this) {
@@ -14,13 +14,13 @@ JS.Test.describe('Line', function() { with(this) {
     
     it('no description is supplied', function() { with(this) {
       assertThrows(LineException, function() { 
-        this.line = new Line(10,1,'Income')
+        this.line = new Line(10,1,Line.LineEnum.INCOME)
       })
     }})
 
     it('has positive amount', function() { with(this) {
       assertThrows(LineException, function() { 
-        this.line = new Line(-10,1,'Income', 'salary')
+        this.line = new Line(-10,1,Line.LineEnum.INCOME, 'salary')
       })
     }})
 
@@ -32,12 +32,12 @@ JS.Test.describe('Line', function() { with(this) {
     }})
 
     it('returns 70', function() { with(this) {
-      this.line = new Line(10, 1, 'Income', 'salary')
+      this.line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       assert( line.perWeek() == 70)
     }})
 
     it('returns 300', function() { with(this) {
-      this.line = new Line(10, 1, 'Income', 'lunch')
+      this.line = new Line(10, 1, Line.LineEnum.INCOME, 'lunch')
       assert( line.perMonth() == 300)
     }})
 

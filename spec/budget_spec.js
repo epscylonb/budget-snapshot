@@ -6,7 +6,7 @@ JS.Test.describe('Budget', function() { with(this) {
   describe('getting lines', function() { with(this) {
     it('returns positive lines', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(10, 1, 'Income', 'salary')
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line)
       var line = new Line(10, 1, 'Expense', 'Lunch')
       budget.addLine(line)
@@ -16,7 +16,7 @@ JS.Test.describe('Budget', function() { with(this) {
 
     it('returns negative lines', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(10, 1, 'Income', 'salary')
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line)
       var line = new Line(10, 1, 'Expense', 'Lunch')
       budget.addLine(line)
@@ -26,7 +26,7 @@ JS.Test.describe('Budget', function() { with(this) {
     
     it('gets single line by id', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(10, 1, 'Income', 'salary')
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line)
       var line = new Line(20, 1, 'Expense', 'Lunch')
       budget.addLine(line)
@@ -44,23 +44,23 @@ JS.Test.describe('Budget', function() { with(this) {
 
     // should be able to add to lines
     it('returns 1', function() { with(this) {
-      var line = new Line(10, 1, 'Income', 'salary')
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line)
       assert(budget.lines.length == 1)
     }})
   
     it('assigns the line an id if it does not have one', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(10, 1, 'Income', 'salary');
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary');
       budget.addLine(line);
       assert(budget.lines[0].id == 1);
     }})
 
     it('throws error if line id is already taken', function() { with(this) {
       this.budget = new Budget();
-      var line = new Line(10, 1, 'Income', 'salary');
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary');
       budget.addLine(line);
-      var line2 = new Line(10, 1, 'Income', 'salary');
+      var line2 = new Line(10, 1, Line.LineEnum.INCOME, 'salary');
       line2.id = 1;
       assertThrows(BudgetException, function() { 
         budget.addLine(line2);
@@ -69,7 +69,7 @@ JS.Test.describe('Budget', function() { with(this) {
 
     it('removes a line', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(10, 1, 'Income', 'salary')
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line)
       budget.removeLine(line.id)
       assert(budget.lines.length == 0)
@@ -77,9 +77,9 @@ JS.Test.describe('Budget', function() { with(this) {
 
     it('removes specific line', function() { with(this) {
       budget.lines = [] // empty lines
-      var line1 = new Line(10, 1, 'Income', 'salary')
+      var line1 = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line1)
-      var line2 = new Line(10, 1, 'Income', 'investments')
+      var line2 = new Line(10, 1, Line.LineEnum.INCOME, 'investments')
       budget.addLine(line2)
       budget.removeLine(line1.id)
       assert(budget.lines[0].description == 'investments') 
@@ -89,95 +89,95 @@ JS.Test.describe('Budget', function() { with(this) {
   describe('totals', function() { with(this) { 
     it('returns 10', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(10, 1, 'Income', 'salary')
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line)
       assert(budget.totalPerDay() == 10)     
     }}) 
 
     it('returns 20', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(20, 1, 'Income', 'salary')
+      var line = new Line(20, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line)
       assert(budget.totalPerDay() == 20)     
     }}) 
 
     it('returns 70', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(10, 1, 'Income', 'salary')
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line)
       assert(budget.totalPerWeek() == 70)     
     }}) 
 
     it('returns 300', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(10, 1, 'Income', 'salary')
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line)
       assert(budget.totalPerMonth() == 300)     
     }}) 
 
     it('returns 3650', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(10, 1, 'Income', 'salary')
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line)
       assert(budget.totalPerYear() == 3650)     
     }}) 
 
     it('returns -140', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(10, 1, 'Expense', 'lunch')
+      var line = new Line(10, 1, Line.LineEnum.EXPENSE, 'lunch')
       budget.addLine(line)
-      var line = new Line(10, 1, 'Expense', 'dinner')
+      var line = new Line(10, 1, Line.LineEnum.EXPENSE, 'dinner')
       budget.addLine(line)
       assert(budget.totalPerWeek() == -140)     
     }}) 
     
     it('formatted to two decimal places', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(1.111, 1, 'Income', 'salary')
+      var line = new Line(1.111, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line)
       assert(budget.totalPerWeek() == 7.78)     
     }}) 
 
     it('income per day', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(10, 1, 'Income', 'salary')
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line);
-      assert(budget.per('Income', Budget.PeriodEnum.DAY) == 10);
+      assert(budget.per(Line.LineEnum.INCOME, Budget.PeriodEnum.DAY) == 10);
     }}) 
 
     it('income per week', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(10, 1, 'Income', 'salary')
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary')
       budget.addLine(line);
-      assert(budget.per('Income', Budget.PeriodEnum.WEEK) == 70);
+      assert(budget.per(Line.LineEnum.INCOME, Budget.PeriodEnum.WEEK) == 70);
     }}) 
 
     it('expenses per day', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(20, 1, 'Expense', 'salary')
+      var line = new Line(20, 1, Line.LineEnum.EXPENSE, 'salary')
       budget.addLine(line);
-      assert(budget.per('Expense', Budget.PeriodEnum.DAY) == 20);
+      assert(budget.per(Line.LineEnum.EXPENSE, Budget.PeriodEnum.DAY) == 20);
     }}) 
 
     it('expenses per month', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(20, 30, 'Expense', 'salary')
+      var line = new Line(20, 30, Line.LineEnum.EXPENSE, 'salary')
       budget.addLine(line);
-      assert(budget.per('Expense', Budget.PeriodEnum.MONTH) == 20);
+      assert(budget.per(Line.LineEnum.EXPENSE, Budget.PeriodEnum.MONTH) == 20);
     }}) 
 
     it('expenses per year', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(20, 365, 'Expense', 'salary')
+      var line = new Line(20, 365, Line.LineEnum.EXPENSE, 'salary')
       budget.addLine(line);
-      assert(budget.per('Expense', Budget.PeriodEnum.YEAR) == 20);
+      assert(budget.per(Line.LineEnum.EXPENSE, Budget.PeriodEnum.YEAR) == 20);
     }}) 
 
     it('totals per year', function() { with(this) {
       budget.lines = [] // empty lines
-      var line = new Line(20, 365, 'Expense', 'salary')
+      var line = new Line(20, 365, Line.LineEnum.EXPENSE, 'salary')
       budget.addLine(line);
-      assert(budget.per('Expense', Budget.PeriodEnum.YEAR) == 20);
+      assert(budget.per(Line.LineEnum.EXPENSE, Budget.PeriodEnum.YEAR) == 20);
     }}) 
   }})
 }}) 
