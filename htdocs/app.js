@@ -52,6 +52,28 @@ var App = {
   },
   updateTotals: function() {
     var table = this.$main.find('table#income-totals')[0];
+
+    var types = [Line.LineEnum.INCOME, Line.LineEnum.EXPENSE];
+
+    for (var i = 0; i < types.length; i++) {
+      $('span#day-' + types[i].toLowerCase()).text(
+        Util.format(
+          this.budget.per(types[i], Budget.PeriodEnum.DAY)
+      ));
+      $('span#week-' + types[i].toLowerCase()).text(
+        Util.format(
+          this.budget.per(types[i], Budget.PeriodEnum.WEEK)
+      ));
+      $('span#month-' + types[i].toLowerCase()).text(
+        Util.format(
+          this.budget.per(types[i], Budget.PeriodEnum.MONTH)
+      ));
+      $('span#year-' + types[i].toLowerCase()).text(
+        Util.format(
+          this.budget.per(types[i], Budget.PeriodEnum.YEAR)
+      ));
+    }
+
     $('span#day-total').text(Util.format(this.budget.totalPerDay()));
     $('span#week-total').text(Util.format(this.budget.totalPerWeek()));
     $('span#month-total').text(Util.format(this.budget.totalPerMonth()));

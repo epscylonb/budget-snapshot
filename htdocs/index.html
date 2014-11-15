@@ -104,6 +104,20 @@
           <th>Year</th>
         </tr>
         <tr>
+          <th>Income</th>
+          <td><span id="day-income">0</span></td>
+          <td><span id="week-income">0</span></td>
+          <td><span id="month-income">0</span></td>
+          <td><span id="year-income">0</span></td>
+        </tr>
+        <tr>
+          <th>Expense</th>
+          <td><span id="day-expense">0</span></td>
+          <td><span id="week-expense">0</span></td>
+          <td><span id="month-expense">0</span></td>
+          <td><span id="year-expense">0</span></td>
+        </tr>
+        <tr>
           <th>Total</th>
           <td><span id="day-total">0</span></td>
           <td><span id="week-total">0</span></td>
@@ -120,26 +134,26 @@
 
 <script id="line-template" type="text/x-handlebars-template">
   {{#each this}}
+  <form>
+  <div class="form-group">
   <div class="row line">
 
     <div class="col-md-4">
-      <div class="form-group">
       <div class="input-group">
         <span class="input-group-addon">$</span>
-        <input type="text" class="form-control" id="amount" value={{amount}}>
+        <input type="text" class="form-control" id="amount" value={{amount}} tabindex={{this.id}}1>
         <input id="line-id" type="hidden" value="{{this.id}}">
-      </div>
       </div>
     </div>
 
     <div class="col-md-4">
       <div class="form-group">
-        <input id="description" type="text" class="form-control" value="{{description}}">
+        <input id="description" type="text" class="form-control" value="{{description}}" tabindex={{this.id}}2>
       </div>
     </div>
 
     <div class="col-md-2">
-      <select class="form-control" id="period">
+      <select class="form-control" id="period" tabindex={{this.id}}3>
         <option value=1 {{period this 'Day'}}>Day</option>
         <option value=7 {{period this 'Week'}}>Week</option>
         <option value=30 {{period this 'Month'}}>Month</option>
@@ -148,12 +162,14 @@
     </div>
 
     <div class="col-md-2">
-      <button type="button" class="btn btn-default delete-line">
+      <button type="button" class="btn btn-default delete-line" tabindex={{this.id}}4>
         <span class="glyphicon glyphicon-remove"></span> Delete 
       </button>
     </div>
 
   </div>
+  </div>
+  </form>
   {{/each}}
 </script>
 
