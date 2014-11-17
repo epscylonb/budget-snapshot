@@ -33,7 +33,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-2">
     </div>
 
     <div class="col-md-4">
@@ -42,8 +42,8 @@
         <div class="panel-heading">
           <h3>Income</h3>
         </div>
-        <div id="income-line-list" class="panel-body">
-        </div>
+        <ul class="list-group" id="income-line-list">
+        </ul>
       </div>
 
       <div class="row">
@@ -60,13 +60,13 @@
 
     </div>
 
-    <div class="col-md-5">
+    <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3>Expenses</h3>
         </div>
-        <div id="expense-line-list" class="panel-body">
-        </div>
+        <ul class="list-group" id="expense-line-list">
+        </ul>
       </div>
 
       <div class="row">
@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <div class="col-md-1">
+    <div class="col-md-2">
     </div>
 
   </div>
@@ -91,9 +91,9 @@
   </div>
 
   <div class="row spacer">
-    <div class="col-md-1">
+    <div class="col-md-2">
     </div>
-    <div class="col-md-5">
+    <div class="col-md-4">
       <h4>Totals</h4>
       <table id="income-totals" class="table table-striped">
         <tr>
@@ -134,10 +134,8 @@
 
 <script id="line-template" type="text/x-handlebars-template">
   {{#each this}}
-  <div class="row line">
-
-    <div class="col-md-12">
-      <div class="">
+    <li class="list-group-item">
+      <div class="line">
         <form class="form-inline" role="form">
           <input id="line-id" type="hidden" value="{{this.id}}">
 
@@ -147,9 +145,11 @@
               <input type="text" class="form-control" id="amount" value={{amount}} placeholder="Enter amount">
             </div>
           </div>
+-
           <div class="form-group">
               <input class="form-control" type="text" id="description" type="text"  value="{{description}}" placeholder="Enter description">
           </div>
+-
           <div class="form-group">
             <select class="form-control" id="period">
               <option value=1 {{period this 'Day'}}>Day</option>
@@ -158,6 +158,7 @@
               <option value=365 {{period this 'Year'}}>Year</option>
             </select>
           </div>
+-
           <div class="form-group">
             <button type="button" class="btn btn-default delete-line">
               <span class="glyphicon glyphicon-remove"></span> 
@@ -166,8 +167,7 @@
 
         </form>
       </div>
-    </div>
-  </div>
+  </li>
 
   {{/each}}
 </script>
