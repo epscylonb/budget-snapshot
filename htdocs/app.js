@@ -55,7 +55,6 @@ var App = {
   updateTotals: function() {
     var table = this.$main.find('table#income-totals')[0];
 
-    //var types = [Line.LineEnum.INCOME, Line.LineEnum.EXPENSE];
     var types = Line.LineEnum;
 
     for (var tKey in types) {
