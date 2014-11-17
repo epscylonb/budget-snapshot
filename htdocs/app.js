@@ -17,7 +17,8 @@ var Util = {
   },
   format: function(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
+  },
+  isNumber: function(obj) { return !isNaN(parseFloat(obj)); }
 }
 
 var App = {
@@ -44,6 +45,7 @@ var App = {
     this.$newExpenseLineBtn = this.$main.find('button#new-expense-line');
   },
   render: function() {
+
     var positiveLines = this.budget.positiveLines();
     var negativeLines = this.budget.negativeLines();
     this.$incomeLineList.html(this.lineTemplate(positiveLines));
@@ -53,25 +55,27 @@ var App = {
   updateTotals: function() {
     var table = this.$main.find('table#income-totals')[0];
 
-    var types = [Line.LineEnum.INCOME, Line.LineEnum.EXPENSE];
+    //var types = [Line.LineEnum.INCOME, Line.LineEnum.EXPENSE];
+    var types = Line.LineEnum;
 
-    for (var i = 0; i < types.length; i++) {
-      $('span#day-' + types[i].toLowerCase()).text(
-        Util.format(
-          this.budget.per(types[i], Budget.PeriodEnum.DAY)
-      ));
-      $('span#week-' + types[i].toLowerCase()).text(
-        Util.format(
-          this.budget.per(types[i], Budget.PeriodEnum.WEEK)
-      ));
-      $('span#month-' + types[i].toLowerCase()).text(
-        Util.format(
-          this.budget.per(types[i], Budget.PeriodEnum.MONTH)
-      ));
-      $('span#year-' + types[i].toLowerCase()).text(
-        Util.format(
-          this.budget.per(types[i], Budget.PeriodEnum.YEAR)
-      ));
+    for (var tKey in types) {
+      if (!types.hasOwnProperty(tKey)) { continue; }
+      var type = types[tKey];
+
+      var periods =  Budget.PeriodEnum;
+
+      for (var pKey in periods) {
+        if (!periods.hasOwnProperty(pKey)) { continue; }
+        var period = periods[pKey];
+        var selector = 'span#';
+        selector += period.toLowerCase();
+        selector += '-';
+        selector += type.toLowerCase();
+        $(selector).text(
+          Util.format(
+            this.budget.per(type, period)
+        ));
+      }
     }
 
     $('span#day-total').text(Util.format(this.budget.totalPerDay()));
@@ -83,9 +87,9 @@ var App = {
     this.$newIncomeLineBtn.on('click', this.createLine.bind(this));
     this.$newExpenseLineBtn.on('click', this.createLine.bind(this));
     this.$main.on('click', '.delete-line', this.deleteLine.bind(this));
-    this.$incomeLineList.on('focusout', this.update.bind(this));
+//    this.$incomeLineList.on('focusout', this.update.bind(this));
     this.$main.on('change', 'select#period', this.update.bind(this));
-    this.$main.on('change', 'input#amount', this.update.bind(this)); 
+    this.$main.on('blur', 'input#amount', this.update.bind(this)); 
   },
   createLine: function(e) {
     var target = $(e.target).closest('button')[0];
@@ -102,12 +106,20 @@ var App = {
     this.render();
   },
   update: function(e) {
+
+    var $focused = $(':focus'); 
     var lineDiv = $(e.target).parents('div.line');
     var lineId = lineDiv.find('input#line-id')[0].value;
 
     var desc = lineDiv.find('input#description')[0].value;
     var amount = lineDiv.find('input#amount')[0].value;
     var period = $(lineDiv.find('select#period')[0]).val();
+
+    if (!Util.isNumber(amount)) { 
+      // TODO: flash an error up
+      this.render();
+      return; 
+    }
 
     var line = this.budget.getLine(parseInt(lineId));
     line.description = desc;
