@@ -36,7 +36,7 @@
     <div class="col-md-1">
     </div>
 
-    <div class="col-md-5">
+    <div class="col-md-4">
 
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -137,41 +137,35 @@
   <div class="row line">
 
     <div class="col-md-12">
-    <div class="well well-sm">
-      <form class="form-inline" role="form">
+      <div class="">
+        <form class="form-inline" role="form">
+          <input id="line-id" type="hidden" value="{{this.id}}">
 
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-addon">$</div>
-            <input type="text" class="form-control" id="amount" value={{amount}} placeholder="Enter amount">
-            <input id="line-id" type="hidden" value="{{this.id}}">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <input type="text" class="form-control" id="amount" value={{amount}} placeholder="Enter amount">
+            </div>
           </div>
-        </div>
-
-        <div class="form-group">
-          <label class="sr-only" for="description">Description</label>
-          <div class="input-group">
-            <input type="text" id="description" type="text" class="form-control" value="{{description}}" placeholder="Enter description">
+          <div class="form-group">
+              <input class="form-control" type="text" id="description" type="text"  value="{{description}}" placeholder="Enter description">
           </div>
-        </div>
-            
-        <div class="form-group">
-          <select class="form-control" id="period">
-            <option value=1 {{period this 'Day'}}>Day</option>
-            <option value=7 {{period this 'Week'}}>Week</option>
-            <option value=30 {{period this 'Month'}}>Month</option>
-            <option value=365 {{period this 'Year'}}>Year</option>
-          </select>
-        </div>
+          <div class="form-group">
+            <select class="form-control" id="period">
+              <option value=1 {{period this 'Day'}}>Day</option>
+              <option value=7 {{period this 'Week'}}>Week</option>
+              <option value=30 {{period this 'Month'}}>Month</option>
+              <option value=365 {{period this 'Year'}}>Year</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-default delete-line">
+              <span class="glyphicon glyphicon-remove"></span> 
+            </button>
+          </div>
 
-        <div class="form-group">
-          <button type="button" class="btn btn-default delete-line">
-            <span class="glyphicon glyphicon-remove"></span> Delete 
-          </button>
-        </div>
-
-      </form>
-    </div>
+        </form>
+      </div>
     </div>
   </div>
 
