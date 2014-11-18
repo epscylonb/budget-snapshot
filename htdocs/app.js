@@ -68,7 +68,8 @@ var App = {
       $(focusable[focusIndex]).focus();
     }
     
-    PieChart.draw(this.budget.positiveLines());
+    PieChart.draw(this.budget.positiveLines(), 'div#income-pie');
+    PieChart.draw(this.budget.negativeLines(), 'div#expense-pie');
   
   },
   updateTotals: function() {

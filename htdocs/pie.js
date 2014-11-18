@@ -12,9 +12,11 @@ var PieChart = {
   draw: function(lines, cssSelector) {
     var data = this.transformLines(lines);
 
-    var w = 400,
-    h = 400,
-    r = 180,
+    $(cssSelector).empty();
+
+    var w = 600,
+    h = 600,
+    r = 200,
     inner = 70,
     color = d3.scale.category20c();
 
@@ -34,13 +36,13 @@ var PieChart = {
     .attr("dy", ".35em")
     .style("text-anchor", "middle")
     .attr("class", "textTop")
-    .text( "TOTAL" )
+    .text( "Per Day" )
     .attr("y", -10),
     textBottom = vis.append("text")
     .attr("dy", ".35em")
     .style("text-anchor", "middle")
     .attr("class", "textBottom")
-    .text(total.toFixed(2) + "m")
+    .text(total.toFixed(2))
     .attr("y", 10);
 
     var arc = d3.svg.arc()
@@ -74,9 +76,9 @@ var PieChart = {
       .duration(100)
       .attr("d", arc);
 
-      textTop.text( "TOTAL" )
+      textTop.text( "Per Day" )
       .attr("y", -10);
-      textBottom.text(total.toFixed(2) + "m");
+      textBottom.text(total.toFixed(2));
     });
 
     arcs.append("svg:path")
