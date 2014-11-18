@@ -43,14 +43,33 @@ var App = {
     this.$expenseLineList = this.$main.find('#expense-line-list');
     this.$newIncomeLineBtn = this.$main.find('button#new-income-line');
     this.$newExpenseLineBtn = this.$main.find('button#new-expense-line');
-  },
-  render: function() {
+    /*
+    this.$main.on('keydown', 'input, select', function(e) { 
+      var self = this,
+        form = self.parents('form:eq(0)'),
+        focusable,
+        next;
 
+        if (e.keyCode == 13 || e.keyCode == 9) {
+          focusable = form.find('input,select,button').filter(':visible');
+          next = focusable.eq(focusable.index(
+    }
+   */
+  },
+  render: function(focusIndex) {
     var positiveLines = this.budget.positiveLines();
     var negativeLines = this.budget.negativeLines();
     this.$incomeLineList.html(this.lineTemplate(positiveLines));
     this.$expenseLineList.html(this.lineTemplate(negativeLines));
     this.updateTotals();
+
+    if (focusIndex) {
+      var focusable = this.$main.find('input,select,button');
+      $(focusable[focusIndex]).focus();
+    }
+    
+    PieChart.draw(this.budget.positiveLines());
+  
   },
   updateTotals: function() {
     var table = this.$main.find('table#income-totals')[0];
@@ -66,6 +85,7 @@ var App = {
       for (var pKey in periods) {
         if (!periods.hasOwnProperty(pKey)) { continue; }
         var period = periods[pKey];
+        
         var selector = 'span#';
         selector += period.toLowerCase();
         selector += '-';
@@ -88,7 +108,8 @@ var App = {
     this.$main.on('click', '.delete-line', this.deleteLine.bind(this));
 //    this.$incomeLineList.on('focusout', this.update.bind(this));
     this.$main.on('change', 'select#period', this.update.bind(this));
-    this.$main.on('blur', 'input#amount', this.update.bind(this)); 
+    this.$main.on('change', 'input#amount', this.update.bind(this)); 
+    this.$main.on('change', 'input#description', this.update.bind(this)); 
   },
   createLine: function(e) {
     var target = $(e.target).closest('button')[0];
@@ -106,7 +127,8 @@ var App = {
   },
   update: function(e) {
 
-    var $focused = $(':focus'); 
+    var index = this.$main.find('input,select,button').index(e.target)
+
     var lineDiv = $(e.target).parents('div.line');
     var lineId = lineDiv.find('input#line-id')[0].value;
 
@@ -124,7 +146,7 @@ var App = {
     line.description = desc;
     line.amount = amount;
     line.days = period;
-    this.render();
+    this.render(index+1);
   }
 }
 

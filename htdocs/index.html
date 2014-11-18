@@ -10,6 +10,8 @@
 
 <script src="budget.js"></script>
 <script src="line.js"></script>
+<script src="d3.min.js"></script>
+<script src="pie.js"></script>
 <script src="handlebars-v2.0.0.js"></script>
 <script src="jquery-1.11.1.min.js"></script>
 <script src="bootstrap.min.js"></script>
@@ -27,8 +29,17 @@
 <div class="container-fluid" id="main">
 
   <div class="row">
-    <div class="col-md-12">
-      <h1 class="text-center">Budget Calculator</h1>
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+
+      <div class="jumbotron">
+        <h1>Budget Snapshot</h1>
+        <p>Quickly and easily create a budget snapshot.</p>
+        <p>Get started by entering your income and expenses below.</p>
+      </div>
+    </div>
+    <div class="col-md-2">
     </div>
   </div>
 
@@ -37,27 +48,20 @@
     </div>
 
     <div class="col-md-4">
-
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3>Income</h3>
         </div>
-        <ul class="list-group" id="income-line-list">
-        </ul>
-      </div>
-
-      <div class="row">
-        <div class="col-md-4">
-          <button id="new-income-line" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span> Add 
-          </button>
-        </div>
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-4">
+        <div class="panel-body">
+          <ul class="list-group" id="income-line-list">
+          </ul>
+          <p>
+            <button id="new-income-line" type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-plus"></span> Add 
+            </button>
+          </p>
         </div>
       </div>
-
     </div>
 
     <div class="col-md-4">
@@ -65,20 +69,14 @@
         <div class="panel-heading">
           <h3>Expenses</h3>
         </div>
-        <ul class="list-group" id="expense-line-list">
-        </ul>
-      </div>
-
-      <div class="row">
-        <div class="col-md-4">
-          <button id="new-expense-line" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span> Add 
-          </button>
-        </div>
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-4">
-        </div>
+        <div class="panel-body">
+          <ul class="list-group" id="expense-line-list">
+          </ul>
+          <p>
+            <button id="new-expense-line" type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-plus"></span> Add 
+            </button>
+          </p>
       </div>
     </div>
 
@@ -90,7 +88,7 @@
   <div class="row">
   </div>
 
-  <div class="row spacer">
+  <div class="row">
     <div class="col-md-2">
     </div>
     <div class="col-md-4">
@@ -126,8 +124,9 @@
         </tr>
       </table>
     </div>
-    </div>
-    <div class="col-md-1">
+    <div class="col-md-2" >
+      <div id='income-pie'>
+      </div>
     </div>
 </div>
 
@@ -145,11 +144,9 @@
               <input type="text" class="form-control" id="amount" value={{amount}} placeholder="Enter amount">
             </div>
           </div>
--
           <div class="form-group">
               <input class="form-control" type="text" id="description" type="text"  value="{{description}}" placeholder="Enter description">
           </div>
--
           <div class="form-group">
             <select class="form-control" id="period">
               <option value=1 {{period this 'Day'}}>Day</option>
@@ -158,7 +155,6 @@
               <option value=365 {{period this 'Year'}}>Year</option>
             </select>
           </div>
--
           <div class="form-group">
             <button type="button" class="btn btn-default delete-line">
               <span class="glyphicon glyphicon-remove"></span> 
@@ -168,8 +164,8 @@
         </form>
       </div>
   </li>
-
   {{/each}}
+
 </script>
 
 <script src="app.js"></script>
