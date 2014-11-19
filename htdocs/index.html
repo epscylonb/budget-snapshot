@@ -20,7 +20,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">
-        BC
+        Budget Snapshot
       </a>
     </div>
   </div>
@@ -47,30 +47,19 @@
   <div class="row">
     <div class="col-md-2" >
     </div>
-    <div class="col-md-4" >
-      <h4>Income</h4>
-      <div id='income-pie'>
-      </div>
-    </div>
-    <div class="col-md-4" >
-      <h4>Expenses</h4>
-      <div id='expense-pie'>
-      </div>
-    </div>
-    <div class="col-md-2" >
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-2">
-    </div>
 
     <div class="col-md-4">
+  
+
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3>Income</h3>
         </div>
         <div class="panel-body">
+
+
+          
+          <div class="alert alert-warning" role="alert"></div>
           <ul class="list-group" id="income-line-list">
           </ul>
           <p>
@@ -81,6 +70,23 @@
         </div>
       </div>
     </div>
+
+    <div class="col-md-1" >
+    </div>
+
+    <div class="col-md-3" >
+      <h4>Income</h4>
+      <div id='income-pie'>
+      </div>
+    </div>
+    <div class="col-md-2" >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+
 
     <div class="col-md-4">
       <div class="panel panel-default">
@@ -96,6 +102,15 @@
             </button>
           </p>
         </div>
+      </div>
+    </div>
+    
+    <div class="col-md-1" >
+    </div>
+
+    <div class="col-md-3" >
+      <h4>Expenses</h4>
+      <div id='expense-pie'>
       </div>
     </div>
 
@@ -145,6 +160,17 @@
 
 </div>
 
+<script id="error-template" type="text/x-handlebars-template">
+  <div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;
+      </span>
+      <span class="sr-only">Close</span>
+    </button>
+    <strong>Warning!</strong> this.message 
+  </div>
+</script>
+          
 
 <script id="line-template" type="text/x-handlebars-template">
   {{#each this}}
@@ -172,6 +198,9 @@
           </div>
           <div class="form-group">
             <button type="button" class="btn btn-default delete-line">
+      <span aria-hidden="true">&times;
+      </span>
+      <span class="sr-only">Close</span>
               <span class="glyphicon glyphicon-remove"></span> 
             </button>
           </div>

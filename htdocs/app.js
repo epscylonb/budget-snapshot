@@ -28,7 +28,7 @@ var App = {
     // if no lines exist add some example ones
     if (this.budget.lines.length == 0) { 
       this.budget.addLine(new Line(10, 1, 'Income', "Salary"));
-      this.budget.addLine(new Line(10, 1, 'Expense', "Lunch"));
+      this.budget.addLine(new Line(10, 1, 'Expense', "Rent"));
     }
 
     this.cacheElements();
@@ -43,18 +43,6 @@ var App = {
     this.$expenseLineList = this.$main.find('#expense-line-list');
     this.$newIncomeLineBtn = this.$main.find('button#new-income-line');
     this.$newExpenseLineBtn = this.$main.find('button#new-expense-line');
-    /*
-    this.$main.on('keydown', 'input, select', function(e) { 
-      var self = this,
-        form = self.parents('form:eq(0)'),
-        focusable,
-        next;
-
-        if (e.keyCode == 13 || e.keyCode == 9) {
-          focusable = form.find('input,select,button').filter(':visible');
-          next = focusable.eq(focusable.index(
-    }
-   */
   },
   render: function(focusIndex) {
     var positiveLines = this.budget.positiveLines();
@@ -66,6 +54,7 @@ var App = {
     if (focusIndex) {
       var focusable = this.$main.find('input,select,button');
       $(focusable[focusIndex]).focus();
+      $(focusable[focusIndex]).select();
     }
     
     PieChart.draw(this.budget.positiveLines(), 'div#income-pie');

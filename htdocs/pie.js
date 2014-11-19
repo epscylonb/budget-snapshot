@@ -14,9 +14,9 @@ var PieChart = {
 
     $(cssSelector).empty();
 
-    var w = 600,
-    h = 600,
-    r = 200,
+    var w = 400,
+    h = 400,
+    r = 150,
     inner = 70,
     color = d3.scale.category20c();
 
