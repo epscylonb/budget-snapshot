@@ -74,7 +74,7 @@ var PieChart = {
 
       textTop.text(d3.select(this).datum().data.label)
       .attr("y", -10);
-      textBottom.text(d3.select(this).datum().data.value.toFixed(2))
+      textBottom.text("$" + d3.select(this).datum().data.value.toFixed(2))
       .attr("y", 10);
     })
     .on("mouseout", function(d) {

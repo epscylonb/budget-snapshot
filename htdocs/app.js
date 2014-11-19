@@ -32,7 +32,7 @@ var Util = {
     }
   },
   format: function(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return "$" + x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   },
   isNumber: function(obj) { return !isNaN(parseFloat(obj)); }
 };
