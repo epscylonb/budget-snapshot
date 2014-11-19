@@ -48,7 +48,7 @@ var PieChart = {
     .attr("dy", ".35em")
     .style("text-anchor", "middle")
     .attr("class", "textBottom")
-    .text(total.toFixed(2))
+    .text("$" + total.toFixed(2))
     .attr("y", 10);
 
     var arc = d3.svg.arc()
@@ -84,7 +84,7 @@ var PieChart = {
 
       textTop.text( "Per " + piePeriod )
       .attr("y", -10);
-      textBottom.text(total.toFixed(2));
+      textBottom.text("$" + total.toFixed(2));
     });
 
     arcs.append("svg:path")
