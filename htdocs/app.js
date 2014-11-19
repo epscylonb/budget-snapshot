@@ -7,12 +7,28 @@ Handlebars.registerHelper('period', function(line, period) {
 });
 
 var Util = {
-  store: function(namespace, data) {
+  store: function(namespace, lines) {
     if (arguments.length > 1) {
-      return localStorage.setItem(namespace, JSON.stringify(data));
+      localStorage.setItem('budget-lines', JSON.stringify(lines));
     } else {
-      var store = localStorage.getItem(namespace);
-      return (store && JSON.parse(store)) || new Budget();
+      var budget = new Budget();
+      var sLines = localStorage.getItem('budget-lines');
+      if (sLines) {
+        var lines = JSON.parse(sLines);
+        if (lines) {
+          for (var i = 0; i < lines.length; i++) {
+            budget.addLine(new Line(
+              lines[i].amount, 
+              lines[i].days,
+              lines[i].type,
+              lines[i].description
+            ));
+          }
+          budget.lastId = lines.length;
+          return budget;
+        }
+      }
+      return new Budget();
     }
   },
   format: function(x) {
@@ -23,7 +39,10 @@ var Util = {
 
 var App = {
   init: function() {
-    this.budget = Util.store();
+    this.budget = Util.store('budget-snapshot');
+    if (!this.budget) {
+      this.budget = new Budget();
+    }
 
     // if no lines exist add some example ones
     if (this.budget.lines.length === 0) { 
@@ -43,6 +62,8 @@ var App = {
     this.$expenseLineList = this.$main.find('#expense-line-list');
     this.$newIncomeLineBtn = this.$main.find('button#new-income-line');
     this.$newExpenseLineBtn = this.$main.find('button#new-expense-line');
+    this.$incomePiePeriodRdio = $('input[name=incomePiePeriod]');
+    this.$expensePiePeriodRdio = $('input[name=expensePiePeriod]');
   },
   render: function(focusIndex) {
     var positiveLines = this.budget.positiveLines();
@@ -57,9 +78,13 @@ var App = {
       $(focusable[focusIndex]).select();
     }
     
-    PieChart.draw(this.budget.positiveLines(), 'div#income-pie');
-    PieChart.draw(this.budget.negativeLines(), 'div#expense-pie');
-  
+    var incomePiePeriod = this.$incomePiePeriodRdio.filter(':checked').val();
+    var expensePiePeriod = this.$expensePiePeriodRdio.filter(':checked').val();
+    PieChart.draw(this.budget.positiveLines(), 'div#income-pie', incomePiePeriod);
+    PieChart.draw(this.budget.negativeLines(), 'div#expense-pie', expensePiePeriod);
+
+    Util.store('budget-snapshot', this.budget.lines, this.budget);
+    $('#flash').hide();
   },
   updateTotals: function() {
     var table = this.$main.find('table#income-totals')[0];
@@ -96,10 +121,11 @@ var App = {
     this.$newIncomeLineBtn.on('click', this.createLine.bind(this));
     this.$newExpenseLineBtn.on('click', this.createLine.bind(this));
     this.$main.on('click', '.delete-line', this.deleteLine.bind(this));
-//    this.$incomeLineList.on('focusout', this.update.bind(this));
     this.$main.on('change', 'select#period', this.update.bind(this));
     this.$main.on('change', 'input#amount', this.update.bind(this)); 
     this.$main.on('change', 'input#description', this.update.bind(this)); 
+    this.$incomePiePeriodRdio.on('change', this.render.bind(this));
+    this.$expensePiePeriodRdio.on('change', this.render.bind(this));
   },
   createLine: function(e) {
     var target = $(e.target).closest('button')[0];
@@ -127,8 +153,9 @@ var App = {
     var period = $(lineDiv.find('select#period')[0]).val();
 
     if (!Util.isNumber(amount)) { 
-      // TODO: flash an error up
       this.render();
+      $('#flash').show();
+      $('#flash').text('Amount "' + amount +'" is not numeric');
       return; 
     }
 

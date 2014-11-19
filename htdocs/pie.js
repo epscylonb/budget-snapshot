@@ -1,16 +1,22 @@
 var PieChart = {
-  transformLines: function(lines) {
+  getValue: function(line, period) {
+    if (period == Budget.PeriodEnum.DAY) { return line.perDay(); }
+    if (period == Budget.PeriodEnum.WEEK) { return line.perWeek(); }
+    if (period == Budget.PeriodEnum.MONTH) { return line.perMonth(); }
+    if (period == Budget.PeriodEnum.YEAR) { return line.perYear(); }
+  },
+  transformLines: function(lines, period) {
     var dataArr = [];
     jQuery.map(lines, function(line) {
       var data = {};
       data.label = line.description;
-      data.value = line.perDay();
+      data.value = PieChart.getValue(line, period);
       dataArr.push(data);
     });
     return dataArr;
   },
-  draw: function(lines, cssSelector) {
-    var data = this.transformLines(lines);
+  draw: function(lines, cssSelector, piePeriod) {
+    var data = this.transformLines(lines, piePeriod);
 
     $(cssSelector).empty();
 
@@ -18,7 +24,7 @@ var PieChart = {
     h = 400,
     r = 150,
     inner = 70,
-    color = d3.scale.category20c();
+    color = d3.scale.category20();
 
     var total = d3.sum(data, function(d) {
       return d3.sum(d3.values(d));
@@ -36,7 +42,7 @@ var PieChart = {
     .attr("dy", ".35em")
     .style("text-anchor", "middle")
     .attr("class", "textTop")
-    .text( "Per Day" )
+    .text( "Per " + piePeriod )
     .attr("y", -10),
     textBottom = vis.append("text")
     .attr("dy", ".35em")
@@ -76,7 +82,7 @@ var PieChart = {
       .duration(100)
       .attr("d", arc);
 
-      textTop.text( "Per Day" )
+      textTop.text( "Per " + piePeriod )
       .attr("y", -10);
       textBottom.text(total.toFixed(2));
     });

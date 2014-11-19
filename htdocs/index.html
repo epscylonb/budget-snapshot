@@ -3,7 +3,7 @@
 <head>
 <link rel="stylesheet" href="bootstrap.min.css">
 <link rel="stylesheet" href="bc.css">
-<title>Budget Calculator</title>
+<title>Budget Snapshot</title>
 </head>
 
 <body>
@@ -36,7 +36,7 @@
     <div class="col-md-8">
       <div class="jumbotron">
         <h1>Budget Snapshot</h1>
-        <p>Quickly and easily create a budget snapshot.</p>
+        <p>Quickly and easily create a snapshot of your current budget.</p>
         <p>Get started by entering your income and expenses below.</p>
       </div>
     </div>
@@ -49,6 +49,13 @@
     </div>
 
     <div class="col-md-8" >
+
+      <div class='row'>
+        <div class='col-md-12'>
+          <div id='flash' class="alert alert-warning" role="alert"></div>
+        </div>
+      </div>
+
       <ul class="nav nav-tabs nav-justified">
         <li role="presentation" class="active">
           <a href="#income" data-toggle="tab"><h3>Income</h3></a>
@@ -70,8 +77,8 @@
                   </ul>
                   <p>
                     <button id="new-income-line" type="button" class="btn btn-default">
-      <span aria-hidden="true">&plus;
-      </span>
+                      <span aria-hidden="true">&plus;
+                      </span>
                       Add 
                     </button>
                   </p>
@@ -79,8 +86,22 @@
                 <div class="col-md-2">
                 </div>
                 <div class="col-md-4">
+                  <label class="radio-inline">
+                    <input type="radio" name="incomePiePeriod" value="Day" checked>Day
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="incomePiePeriod" value="Week">Week
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="incomePiePeriod" value="Month">Month
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="incomePiePeriod" value="Year">Year
+                  </label>
+
                   <div id='income-pie'>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -91,13 +112,28 @@
                   </ul>
                   <p>
                     <button id="new-expense-line" type="button" class="btn btn-default">
-                      <span class="glyphicon glyphicon-plus"></span> Add 
+
+                      <span aria-hidden="true">&plus;
+                      </span>
+                      Add 
                     </button>
                   </p>
                 </div>
                 <div class="col-md-2">
                 </div>
                 <div class="col-md-4">
+                  <label class="radio-inline">
+                    <input type="radio" name="expensePiePeriod" value="Day" checked>Day
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="expensePiePeriod" value="Week">Week
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="expensePiePeriod" value="Month">Month
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="expensePiePeriod" value="Year">Year
+                  </label>
                   <div id='expense-pie'>
                   </div>
                 </div>
