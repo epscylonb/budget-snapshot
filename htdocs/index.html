@@ -48,116 +48,105 @@
     <div class="col-md-2" >
     </div>
 
-    <div class="col-md-4">
-  
-
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3>Income</h3>
-        </div>
-        <div class="panel-body">
-
-
-          
-          <div class="alert alert-warning" role="alert"></div>
-          <ul class="list-group" id="income-line-list">
-          </ul>
-          <p>
-            <button id="new-income-line" type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-plus"></span> Add 
-            </button>
-          </p>
+    <div class="col-md-8" >
+      <ul class="nav nav-tabs nav-justified">
+        <li role="presentation" class="active">
+          <a href="#income" data-toggle="tab"><h3>Income</h3></a>
+        </li>
+        <li role="presentation">
+          <a href="#expenses" data-toggle="tab"><h3>Expenses</h3></a>
+        </li>
+        <li role="presentation">
+          <a href="#totals" data-toggle="tab"><h3>Totals</h3></a>
+        </li>
+      </ul>
+      <div class="row">
+        <div class="col-md-12">
+          <div id="tab-content" class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="income">
+              <div class="row spacer">
+                <div class="col-md-6">
+                  <ul class="list-group" id="income-line-list">
+                  </ul>
+                  <p>
+                    <button id="new-income-line" type="button" class="btn btn-default">
+      <span aria-hidden="true">&plus;
+      </span>
+                      Add 
+                    </button>
+                  </p>
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-4">
+                  <div id='income-pie'>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="expenses">
+              <div class="row spacer">
+                <div class="col-md-6">
+                  <ul class="list-group" id="expense-line-list">
+                  </ul>
+                  <p>
+                    <button id="new-expense-line" type="button" class="btn btn-default">
+                      <span class="glyphicon glyphicon-plus"></span> Add 
+                    </button>
+                  </p>
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-4">
+                  <div id='expense-pie'>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="totals">
+              <div class="row spacer">
+                <div class="col-md-12">
+                  <table id="income-totals" class="table table-striped">
+                    <tr>
+                      <th></th>
+                      <th>Day</th>
+                      <th>Week</th>
+                      <th>Month</th>
+                      <th>Year</th>
+                    </tr>
+                    <tr>
+                      <th>Income</th>
+                      <td><span id="day-income">0</span></td>
+                      <td><span id="week-income">0</span></td>
+                      <td><span id="month-income">0</span></td>
+                      <td><span id="year-income">0</span></td>
+                    </tr>
+                    <tr>
+                      <th>Expenses</th>
+                      <td><span id="day-expense">0</span></td>
+                      <td><span id="week-expense">0</span></td>
+                      <td><span id="month-expense">0</span></td>
+                      <td><span id="year-expense">0</span></td>
+                    </tr>
+                    <tr>
+                      <th>Net</th>
+                      <td><span id="day-total">0</span></td>
+                      <td><span id="week-total">0</span></td>
+                      <td><span id="month-total">0</span></td>
+                      <td><span id="year-total">0</span></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="col-md-1" >
-    </div>
-
-    <div class="col-md-3" >
-      <h4>Income</h4>
-      <div id='income-pie'>
-      </div>
-    </div>
     <div class="col-md-2" >
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-md-2">
-    </div>
-
-
-    <div class="col-md-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3>Expenses</h3>
-        </div>
-        <div class="panel-body">
-          <ul class="list-group" id="expense-line-list">
-          </ul>
-          <p>
-            <button id="new-expense-line" type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-plus"></span> Add 
-            </button>
-          </p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-md-1" >
-    </div>
-
-    <div class="col-md-3" >
-      <h4>Expenses</h4>
-      <div id='expense-pie'>
-      </div>
-    </div>
-
-    <div class="col-md-2">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-2">
-    </div>
-    <div class="col-md-8">
-      <h4>Totals</h4>
-      <table id="income-totals" class="table table-striped">
-        <tr>
-          <th></th>
-          <th>Day</th>
-          <th>Week</th>
-          <th>Month</th>
-          <th>Year</th>
-        </tr>
-        <tr>
-          <th>Income</th>
-          <td><span id="day-income">0</span></td>
-          <td><span id="week-income">0</span></td>
-          <td><span id="month-income">0</span></td>
-          <td><span id="year-income">0</span></td>
-        </tr>
-        <tr>
-          <th>Expense</th>
-          <td><span id="day-expense">0</span></td>
-          <td><span id="week-expense">0</span></td>
-          <td><span id="month-expense">0</span></td>
-          <td><span id="year-expense">0</span></td>
-        </tr>
-        <tr>
-          <th>Total</th>
-          <td><span id="day-total">0</span></td>
-          <td><span id="week-total">0</span></td>
-          <td><span id="month-total">0</span></td>
-          <td><span id="year-total">0</span></td>
-        </tr>
-      </table>
-    </div>
-    <div class="col-md-2">
-    </div>
-  </div>
-
 </div>
 
 <script id="error-template" type="text/x-handlebars-template">
@@ -198,10 +187,7 @@
           </div>
           <div class="form-group">
             <button type="button" class="btn btn-default delete-line">
-      <span aria-hidden="true">&times;
-      </span>
-      <span class="sr-only">Close</span>
-              <span class="glyphicon glyphicon-remove"></span> 
+              <span aria-hidden="true">&times;</span> 
             </button>
           </div>
 

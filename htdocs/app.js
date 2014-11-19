@@ -1,8 +1,8 @@
 Handlebars.registerHelper('period', function(line, period) {
-  if (period == 'Day' && line.days == 1) { return 'selected' }
-  if (period == 'Week' && line.days == 7) { return 'selected' }
-  if (period == 'Month' && line.days == 30) { return 'selected' }
-  if (period == 'Year' && line.days == 365) { return 'selected' }
+  if (period == 'Day' && line.days == 1) { return 'selected'; }
+  if (period == 'Week' && line.days == 7) { return 'selected'; }
+  if (period == 'Month' && line.days == 30) { return 'selected'; }
+  if (period == 'Year' && line.days == 365) { return 'selected'; }
   return '';
 });
 
@@ -19,14 +19,14 @@ var Util = {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   },
   isNumber: function(obj) { return !isNaN(parseFloat(obj)); }
-}
+};
 
 var App = {
   init: function() {
     this.budget = Util.store();
 
     // if no lines exist add some example ones
-    if (this.budget.lines.length == 0) { 
+    if (this.budget.lines.length === 0) { 
       this.budget.addLine(new Line(10, 1, 'Income', "Salary"));
       this.budget.addLine(new Line(10, 1, 'Expense', "Rent"));
     }
@@ -117,7 +117,7 @@ var App = {
   },
   update: function(e) {
 
-    var index = this.$main.find('input,select,button').index(e.target)
+    var index = this.$main.find('input,select,button').index(e.target);
 
     var lineDiv = $(e.target).parents('div.line');
     var lineId = lineDiv.find('input#line-id')[0].value;
@@ -138,6 +138,6 @@ var App = {
     line.days = period;
     this.render(index+1);
   }
-}
+};
 
 App.init();

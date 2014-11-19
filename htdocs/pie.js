@@ -3,8 +3,8 @@ var PieChart = {
     var dataArr = [];
     jQuery.map(lines, function(line) {
       var data = {};
-      data['label'] = line.description;
-      data['value'] = line.perDay();
+      data.label = line.description;
+      data.value = line.perDay();
       dataArr.push(data);
     });
     return dataArr;
@@ -30,7 +30,7 @@ var PieChart = {
     .attr("width", w)
     .attr("height", h)
     .append("svg:g")
-    .attr("transform", "translate(" + r * 1.1 + "," + r * 1.1 + ")")
+    .attr("transform", "translate(" + r * 1.1 + "," + r * 1.1 + ")");
 
     var textTop = vis.append("text")
     .attr("dy", ".35em")
@@ -64,7 +64,7 @@ var PieChart = {
     .on("mouseover", function(d) {
       d3.select(this).select("path").transition()
       .duration(200)
-      .attr("d", arcOver)
+      .attr("d", arcOver);
 
       textTop.text(d3.select(this).datum().data.label)
       .attr("y", -10);
@@ -106,4 +106,4 @@ var PieChart = {
     .text(function(d) { return d; });
 
   }
-}
+};
