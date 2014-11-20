@@ -86,6 +86,60 @@ JS.Test.describe('Budget', function() { with(this) {
     }});
   }});
 
+  describe('to csv', function() { with(this) {
+    it('should return a string', function() { with(this) {
+      budget.lines = []; // empty lines
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary');
+      budget.addLine(line); 
+      var csv = budget.toCSV();
+      assert(typeof csv == 'string');
+    }});
+
+    it('should contain a new line char', function() { with(this) {
+      budget.lines = []; // empty lines
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary');
+      budget.addLine(line); 
+      var csv = budget.toCSV();
+
+      assert(csv.indexOf('\n') != -1);
+    }});
+
+    it('budget and csv should have same number of lines', function() { with(this) {
+      budget.lines = []; // empty lines
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary');
+      budget.addLine(line); 
+      var csv = budget.toCSV();
+
+      var lines = csv.split('\n');
+      assert((lines.length - 2) == budget.lines.length);
+
+    }});
+
+    it('should have five fields on a line', function() { with(this) {
+      budget.lines = []; // empty lines
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary');
+      budget.addLine(line); 
+      var csv = budget.toCSV();
+
+      var lines = csv.split('\n');
+      var fields = lines[0].split(',');
+
+      assert(fields.length == 5);
+    }});
+
+    it('first field should be "description"', function() { with(this) {
+      budget.lines = []; // empty lines
+      var line = new Line(10, 1, Line.LineEnum.INCOME, 'salary');
+      budget.addLine(line); 
+      var csv = budget.toCSV();
+
+      var lines = csv.split('\n');
+      var fields = lines[0].split(',');
+
+      assert(fields[0] == '"description"');
+    }});
+  }});
+
   describe('totals', function() { with(this) { 
     it('returns 10', function() { with(this) {
       budget.lines = []; // empty lines

@@ -14,7 +14,7 @@ var Util = {
       var budget = new Budget();
       var sLines = localStorage.getItem('budget-lines');
       if (sLines) {
-        var lines = JSON.parse(sLines);
+        lines = JSON.parse(sLines);
         if (lines) {
           for (var i = 0; i < lines.length; i++) {
             budget.addLine(new Line(
@@ -126,6 +126,7 @@ var App = {
     this.$main.on('change', 'input#description', this.update.bind(this)); 
     this.$incomePiePeriodRdio.on('change', this.render.bind(this));
     this.$expensePiePeriodRdio.on('change', this.render.bind(this));
+    $('#csv-button').on('click', this.downloadCSV.bind(this));
   },
   createLine: function(e) {
     var target = $(e.target).closest('button')[0];
@@ -164,6 +165,12 @@ var App = {
     line.amount = amount;
     line.days = period;
     this.render(index+1);
+  },
+  downloadCSV: function() {
+    var csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += this.budget.toCSV();
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
   }
 };
 
