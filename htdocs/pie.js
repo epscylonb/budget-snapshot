@@ -42,13 +42,13 @@ var PieChart = {
     .attr("dy", ".35em")
     .style("text-anchor", "middle")
     .attr("class", "textTop")
-    .text( "Per " + piePeriod )
+    .text("$" + total.toFixed(2))
     .attr("y", -10),
     textBottom = vis.append("text")
     .attr("dy", ".35em")
     .style("text-anchor", "middle")
     .attr("class", "textBottom")
-    .text("$" + total.toFixed(2))
+    .text( "Per " + piePeriod )
     .attr("y", 10);
 
     var arc = d3.svg.arc()
@@ -82,9 +82,10 @@ var PieChart = {
       .duration(100)
       .attr("d", arc);
 
-      textTop.text( "Per " + piePeriod )
+      textTop.text("$" + total.toFixed(2))
       .attr("y", -10);
-      textBottom.text("$" + total.toFixed(2));
+
+      textBottom.text("Per " + piePeriod);
     });
 
     arcs.append("svg:path")
