@@ -11,6 +11,10 @@ The code layout was inspired by the [example todo app](http://todomvc.com/exampl
 
 The htdocs directory contains the app, to run the application copy the files to your webroot, you will also need to copy the files from the lib directory to the webroot as well.
 
+The app uses HTML5 local storage, no data is sent back to server.
+
+Demo hosted [here](http://s2.epscylonb.com/budget-snapshot/).
+
 ## TODO
 
 * Change the default color scheme.
